@@ -1,0 +1,81 @@
+<section ng-controller="classController" class="container-fluid class-view">
+    <header class="header-router">
+        <div class="header-title">Class Management</div>
+    </header>
+    <div class="row">
+        <aside class="col-lg-3">
+            <section id="class-form" class="bg-info">
+                <form>
+                    <div class="form-group row avatar-wrapper">
+                        <div class="avatar-box">
+                            <div id="img-avatar" style="width:100%"
+                                 ngf-background="contextData.classObj.cover_photo || './images/uploads/12593956_728964733907125_4191823411365949652_o.jpg'"></div>
+                            <div class="btn-upload-avatar"><img src="\images\no-image-icon-13.png"
+                                                                ng-click="openFileSelect()"></div>
+                            <input type="file" class="hidden" id="input-avatar"
+                                   ng-model="contextData.classObj.cover_photo"
+                                   name="avatar" ngf-pattern="'image/*'" accept="image/*" ngf-select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="class-name">Name</label>
+                        <input type="text" class="form-control" id="class-name" name="name" placeholder="name"
+                               ng-model="contextData.classObj.class_name"/>
+                    </div>
+
+                    <input type="button"
+                           class="btn btn-success {{ configData.classInputForm.type === 'new'?'new-record':'hidden' }}"
+                           value="Add Student"
+                           ng-click="control.addNewClassAJAX()"/>
+
+                    <input type="button"
+                           class="btn btn-info {{ configData.classInputForm.type === 'edit'?'edit-record':'hidden'}}"
+                           value="Update Class"
+                           ng-click="control.updateClassAJAX()"/>
+
+                    <input type="button"
+                           class="btn btn-danger {{ configData.classInputForm.type === 'edit'?'edit-record':'hidden'}}"
+                           value="Cancel"
+                           ng-click="control.cancelUpdate()"/>
+                </form>
+            </section>
+        </aside>
+
+        <aside class="col-lg-9">
+            <section id="class-list gb-success">
+                <table class="table table-striped table-hover" style="min-height: 592px !important;">
+                    <tr>
+                        <th style="text-align: center; width: 60px">#</th>
+                        <th style="text-align: center; width: 70px">Cover</th>
+                        <th style="text-align: center;">Name</th>
+                        <th></th>
+                    </tr>
+
+
+                    <tr class="row-value"
+                        ng-repeat="classItem in contextData.classList | limitTo:configData.pagination.pageSize:(configData.pagination.pageSize*(configData.pagination.currentPage-1))">
+                        <td style="text-align: center; color: red; font-weight: bold; font-size: 0.8em">{{ $index + 1 +
+                            (configData.pagination.pageSize*(configData.pagination.currentPage-1)) }}
+                        </td>
+                        <td>
+                            <div class="img-avatar"
+                                 style="background-image: url('{{ helper.getURL()+'/' }}{{ classItem.cover_photo||'null' }}');"></div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold; color: #00acc1">{{ classItem.class_name }} <span style="font-weight: normal">({{ classItem.student_total }} student)</span> </td>
+                        <td class="td-action">
+                            <div>
+                                <input type="button" class="btn btn-info" value="Edit"
+                                       ng-click="control.editClassAJAX(classItem)">
+                                <input type="button" class="btn btn-danger" value="Delete"
+                                       ng-click="control.deleteClassAJX(classItem)">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table-pagination bundle="contextData"/>
+            </section>
+        </aside>
+    </div>
+</section>

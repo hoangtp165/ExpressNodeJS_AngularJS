@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='./stylesheets/style.css'/>
+    <link rel='stylesheet' href='./stylesheets/student-css.css'/>
+    <link rel='stylesheet' href='./stylesheets/class-css.css'/>
+    <link rel='stylesheet' href='/node_modules/bootstrap/dist/css/bootstrap.css'/>
+
+    <link rel='stylesheet' href='/node_modules/alertifyjs/build/css/alertify.min.css'/>
+    <!--<link rel='stylesheet' href='/node_modules/alertifyjs/build/css/alertify.rtl.min.css'/>-->
+
+    <link rel='stylesheet' href='/node_modules/alertifyjs/build/css/themes/bootstrap.min.css'/>
+    <!--<link rel='stylesheet' href='/node_modules/alertifyjs/build/css/themes/bootstrap.rtl.min.css'/>-->
+    <link rel='stylesheet' href='/node_modules/alertifyjs/build/css/themes/default.min.css'/>
+    <!--<link rel='stylesheet' href='/node_modules/alertifyjs/build/css/themes/default.rtl.min.css'/>-->
+    <link rel='stylesheet' href='/node_modules/alertifyjs/build/css/themes/semantic.min.css'/>
+    <!--<link rel='stylesheet' href='/node_modules/alertifyjs/build/css/themes/semantic.rtl.min.css'/>-->
+
+    <link rel='stylesheet' href='/node_modules/select2/dist/css/select2.min.css'/>
+
+
+    <script src='/node_modules/angular/angular.js'></script>
+    <script src='/node_modules/angular/angular-route.js'></script>
+    <script src='/node_modules/jquery/dist/jquery.js'></script>
+    <script src='/node_modules/select2/dist/js/select2.js'></script>
+    <script src='/node_modules/alertifyjs/build/alertify.min.js'></script>
+    <script type="application/javascript" src="/javascripts/jquery.slimscroll.min.js"></script>
+    <script type="application/javascript" src="/javascripts/ng-file-upload-shim.min.js"></script>
+    <script type="application/javascript" src="/javascripts/ng-file-upload.min.js"></script>
+</head>
+<body>
+<section ng-app="asm" style="width: 100%; height:100%;padding: 0; margin: 0">
+    <aside class="aside-menu-bar">
+        <ul class="ul-menu-vertical">
+            <li><a href="#!class">Class Management</a></li>
+            <li><a href="#!student">Student Management</a></li>
+        </ul>
+    </aside>
+
+    <aside class="aside-root-wrapper">
+        <div ng-view style="width: 100%; height: auto; padding: 0; margin: 0; float: left;"></div>
+    </aside>
+</section>
+
+<script>
+    var app = angular.module("asm", ["ngRoute", "ngFileUpload"]);
+
+    app.config(function ($routeProvider) {
+        $routeProvider
+            .when("/", {
+                templateUrl: "/class-management",
+            })
+            .when("/class", {
+                templateUrl: "/class-management",
+            }).when("/student", {
+            templateUrl: "student-management",
+        });
+    })
+</script>
+
+<script src="/javascripts/class_management_script.js"></script>
+<script src="/javascripts/student_management_script.js"></script>
+</body>
+</html>
